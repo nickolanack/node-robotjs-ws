@@ -24,6 +24,6 @@
     "async":"latest",
     "tinywebjs":"git://github.com/nickolanack/tinywebjs.git#master",
     "tinywebsocketjs":"git://github.com/nickolanack/tinywebsocketjs.git#master"
-    
+    "robotjs":"latest"
   }
 }
