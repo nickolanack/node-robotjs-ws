@@ -10,7 +10,7 @@
 
 <script type="text/javascript" src="ws.js"></script>
 
-<link rel="stylesheet" href="style.css" />
+
 <script type="text/javascript">
 
 
@@ -21,12 +21,8 @@
 		var websocket=new WebsocketControlQuery('ws://'+window.location.hostname+':8080').addEvent('connect',function(){
 
 			setTimeout(function(){
-				websocket.execute('press_key', {key:'H'});
-				
-				setTimeout(function(){
-					websocket.execute('press_keys', {keys:'Hello World'});
-				}, 5000);
-				
+				websocket.execute('write_string', {key:'Hello World'});
+
 			}, 5000);
 			
 			

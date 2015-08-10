@@ -29,14 +29,11 @@ if(config.websocketPort!==false){
 		});
 		
 		
-		wsserver.addTask('press_key', function(options, callback){
-			var key=options.args.key;
-			console.log('recieved key: '+key);
-			robot.keyTap(key);
-		}).addTask('press_keys', function(options, callback){
-			var keys=options.args.keys;
-			console.log('recieved keys: '+keys);
-			robot.typeString(keys);
+		wsserver.addTask('write_string', function(options, callback){
+			var string=options.args.string;
+			console.log('recieved string: '+string);
+			robot.typeString(string);
+			
 		});
 
 	})();
