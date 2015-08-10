@@ -18,7 +18,7 @@
 	
 		
 		
-		var websocket=new WebsocketControlQuery(me.options.websocket).addEvent('connect',function(){
+		var websocket=new WebsocketControlQuery('ws://'+window.location.hostname+':8080').addEvent('connect',function(){
 
 			setTimeout(function(){
 				websocket.execute('press_key', {key:'H'});
