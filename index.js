@@ -16,6 +16,9 @@ if(config.serverPort!==false){
 	})();
 }
 
+
+var robot = require("robotjs");
+
 if(config.websocketPort!==false){
 
 	(function(){
@@ -29,9 +32,11 @@ if(config.websocketPort!==false){
 		wsserver.addTask('press_key', function(options, callback){
 			var key=options.args.key;
 			console.log('recieved key: '+key);
+			robot.keyTap(key);
 		}).addTask('press_keys', function(options, callback){
 			var keys=options.args.keys;
 			console.log('recieved keys: '+keys);
+			robot.typeString(keys);
 		});
 
 	})();
