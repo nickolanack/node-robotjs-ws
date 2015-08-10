@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="rpi-favicon.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raspberry Pi - Controls</title>
+<script type="text/javascript" src="mtc-1.5.1.js"></script>
+<script type="text/javascript" src="mtm-1.5.1.js"></script>
+
+<script type="text/javascript" src="ws.js"></script>
+
+<link rel="stylesheet" href="style.css" />
+<script type="text/javascript">
+
+
+	window.addEvent('load',function(){
+	
+		
+		
+		var websocket=new WebsocketControlQuery(me.options.websocket).addEvent('connect',function(){
+
+			setTimeout(function(){
+				websocket.execute('press_key', {key:'H'});
+			}, 1000);
+			
+			setTimeout(function(){
+				websocket.execute('press_keys', {key:'Hello World'});
+			}, 5000);
+		});
+
+	});
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

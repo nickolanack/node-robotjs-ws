@@ -1,0 +1,29 @@
+{
+  "name": "node-robotjs-ws",
+  "version": "0.0.0",
+  "description": "experiments with robotjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nickolanack/node-robotjs-ws.git"
+  },
+  "keywords": [
+ 
+  ],
+  "author": "Nick Blackwell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickolanack/node-robotjs-ws/issues"
+  },
+  "dependencies":{
+
+    "ws":"latest"
+    "async":"latest",
+    "tinywebjs":"git://github.com/nickolanack/tinywebjs.git#master",
+    "tinywebsocketjs":"git://github.com/nickolanack/tinywebsocketjs.git#master"
+    
+  }
+}
