@@ -26,14 +26,10 @@ if(config.websocketPort!==false){
 		var WebSocketServer=require('tinywebsocketjs');
 		var wsserver=new WebSocketServer({
 			port:config.websocketPort
-		});
-		
-		
-		wsserver.addTask('write_string', function(options, callback){
+		}).addTask('write_string', function(options){
 			var string=options.args.string;
 			console.log('recieved string: '+string);
 			robot.typeString(string);
-			
 		});
 
 	})();
