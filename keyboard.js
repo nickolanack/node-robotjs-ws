@@ -11,16 +11,22 @@ function Keyboard(){
 };
 Keyboard.prototype.longKeyPress=function(key, cb, time){
 	var me=this;
+	var c=0;
 	var i=setInterval(function(){
 		
 		me.rb.keyToggle(key, true);
-		
+		c++;
+		if(c%4==0){
+			//don't want to blast the console.
+			console.log('pulse: '+key+' down');
+		}
 	},250);
 	
 	setTimeout(function(){
 		
 		clearInterval(i);
 		me.rb.keyToggle(key, false);
+		console.log('send: '+key+' up');
 		if((typeof cb)=='function')cb();
 	},time);
 	
@@ -32,14 +38,16 @@ Keyboard.prototype.keyTapArray=function(keys, cb, delay){
 	var me=this;
 	var i=setInterval(function(){
 		
-		me.rb.keyTap(keys.shift());
+		var key=keys.shift();
+		me.rb.keyTap(key);
+		console.log('tap: '+key);
 		if(keys.length==0){
 			clearInterval(i);
 			if((typeof cb)=='function')cb();
 		}
 		
 	},delay);
-	
+		
 	return me;
 }
 
