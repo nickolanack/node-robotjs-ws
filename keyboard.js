@@ -13,14 +13,14 @@ Keyboard.prototype.longKeyPress=function(key, cb, time){
 	var me=this;
 	var i=setInterval(function(){
 		
-		me.rb.toggleKey(key, true);
+		me.rb.keyToggle(key, true);
 		
 	},250);
 	
 	setTimeout(function(){
 		
 		clearTimeout(i);
-		me.rb.toggleKey(key, false);
+		me.rb.keyToggle(key, false);
 		if((typeof cb)=='function')cb();
 	},time);
 }
