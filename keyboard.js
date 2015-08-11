@@ -25,4 +25,19 @@ Keyboard.prototype.longKeyPress=function(key, cb, time){
 	},time);
 }
 
+
+Keyboard.prototype.longKeyPressSimple=function(key, cb, time){
+	var me=this;
+
+	me.rb.keyToggle(key, true);
+
+	setTimeout(function(){
+
+		me.rb.keyToggle(key, false);
+		if((typeof cb)=='function')cb();
+	},time);
+}
+
+
+
 module.exports=Keyboard;
