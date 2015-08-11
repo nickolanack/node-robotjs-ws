@@ -60,4 +60,4 @@ Keyboard.prototype.longKeyPressSimple=function(key, cb, time){
 
 
 
-module.exports=Keyboard;
+module.exports=new Keyboard();
