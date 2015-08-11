@@ -9,7 +9,7 @@ function Keyboard(){
 	
 	
 };
-Keyboard.prototype.longPress=function(key, cb, time){
+Keyboard.prototype.longKeyPress=function(key, cb, time){
 	var me=this;
 	var i=setInterval(function(){
 		
