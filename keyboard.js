@@ -15,7 +15,7 @@ var Keyboard=(function(){
 		if(_modifiers.length){
 			return _modifiers.slice(0);
 		}else{
-			return null;
+			return undefined;
 		}
 	}
 	
