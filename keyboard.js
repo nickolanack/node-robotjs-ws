@@ -1,64 +1,100 @@
 /**
  * 
  */
-
-function Keyboard(){
-	
-	var me=this;
-	me.rb=require('robotjs');
-	me._modifiers=[];
-	me._keys=[];
+var Keyboard=(function(){
 	
 	
-};
-Keyboard.prototype.tap=function(key){
-	var me=this;
-	me.press(key);
-	me.release(key);
-	return me;
-}
 
-
-Keyboard.prototype.press=function(key){
-	var me=this;
-	if(me.isPressed(key)){
-		throw new Error('Key is already pressed: '+key);
+	var _rb=require('robotjs');
+	var _modifiers=[];
+	var _keys=[];
+	
+	
+	function _getModifiers(){
+		
+		if(_modifiers.length){
+			return _modifiers.slice(0);
+		}else{
+			return null;
+		}
 	}
 	
-	me.rb.keyToggle(key, true, me._getModifiers());
-	me._setPressed(key);
-	return me;
-}
-
-Keyboard.prototype.release=function(key){
-	var me=this;
-	if(!me.isPressed(key)){
-		throw new Error('Key is not pressed: '+key);
+	var _modifiersList=['command', 'alt', 'shift', 'option' ,'control'];
+	
+	function _isModifier(key){
+		return (_modifiersList.indexOf(key)>=0);
 	}
 	
-	me._setReleased(key);
-	me.rb.keyToggle(key, false, me._getModifiers());
-
-	return me;
+	function _setPressed(key){
+		if(_isModifier(key)){
+			_modifiers.push(key);
+		}else{
+			_keys.push(key)
+		}
+	}
 	
-}
-
-Keyboard.prototype.isPressed=function(key){
-	if(key.length>1){
-		return me._modifiers.indexOf(key)>=0;
-	}else{
-		return me._keys.indexOf(key)>=0;
+	function _setReleased(key){
+		var i=-1;
+		if(_isModifier(key)){
+			i=_modifiers.indexOf(key);	
+		}else{
+			i=_keys.indexOf(key);
+		}
+		_modifiers.splice(i, 1);
 	}
-}
-
-Keyboard.prototype._getModifiers=function(){
-	var me=this;
-	if(me._modifiers.length){
-		return me._modifiers;
-	}else{
-		return null;
+	
+	function _isPressed(key){
+		return (_modifiers.indexOf(key)>=0||_keys.indexOf(key)>=0);
 	}
-}
+	
+	
+	
+	
+	function Keyboard(){
+
+	};
+
+	Keyboard.prototype.tap=function(key){
+		var me=this;
+		me.press(key);
+		me.release(key);
+		return me;
+	}
+
+
+	Keyboard.prototype.press=function(key){
+		var me=this;
+		if(_isPressed(key)){
+			throw new Error('Key is already pressed: '+key);
+		}
+		
+		_rb.keyToggle(key, true, _getModifiers());
+		_setPressed(key);
+		return me;
+	}
+
+	Keyboard.prototype.release=function(key){
+		var me=this;
+		if(!_isPressed(key)){
+			throw new Error('Key is not pressed: '+key);
+		}
+		
+		_setReleased(key);
+		_rb.keyToggle(key, false, _getModifiers());
+
+		return me;
+		
+	}
+
+	
+
+	
+	
+	
+	return Keyboard;
+	
+
+})();
 
 
 module.exports=new Keyboard();
