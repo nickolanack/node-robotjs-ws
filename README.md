@@ -12,7 +12,12 @@ here is my code to toggle apps using the apple command+tab menu
 
 // after 5 seconds activate the menue, and move right twice then close the menu
 // assumes there are at least 4 open apps...
-require('./keyboard.js').sleep(5).press('command').tap('tab').sleep(1).tap('tab').sleep(1).tap('tab').sleep(5).release('command');
+require('./keyboard.js').sleep(5)
+	.press('command')
+	.tap('tab').sleep(1)
+	.tap('tab').sleep(1)
+	.tap('tab').sleep(5)
+	.release('command');
 
 
 ```
