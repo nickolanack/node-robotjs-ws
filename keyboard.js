@@ -10,13 +10,10 @@ var Keyboard=(function(){
 	var _keys=[];
 	
 	
-	function _getModifiers(){
-		
-		if(_modifiers.length){
-			return _modifiers.slice(0);
-		}else{
-			return undefined;
-		}
+
+	
+	function _hasModifiers(){
+		return !!_modifiers.length;
 	}
 	
 	var _modifiersList=['command', 'alt', 'shift', 'option' ,'control'];
@@ -67,8 +64,12 @@ var Keyboard=(function(){
 		if(_isPressed(key)){
 			throw new Error('Key is already pressed: '+key);
 		}
+		if(_hasModifiers()){
+			_rb.keyToggle(key, true, _modifiers);
+		}else{
+			_rb.keyToggle(key, true);
+		}
 		
-		_rb.keyToggle(key, true, _getModifiers());
 		_setPressed(key);
 		return me;
 	}
@@ -80,7 +81,11 @@ var Keyboard=(function(){
 		}
 		
 		_setReleased(key);
-		_rb.keyToggle(key, false, _getModifiers());
+		if(_hasModifiers()){
+			_rb.keyToggle(key, false, _modifiers);
+		}else{
+			_rb.keyToggle(key, false);
+		}
 
 		return me;
 		
