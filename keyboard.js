@@ -94,6 +94,7 @@ var Keyboard=(function(){
 	}
 	
 	Keyboard.prototype.sleep=function(sec){
+		var me=this;
 		require('sleep').sleep(sec);
 		return me;
 	}
