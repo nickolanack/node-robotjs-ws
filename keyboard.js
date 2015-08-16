@@ -31,13 +31,15 @@ var Keyboard=(function(){
 	}
 	
 	function _setReleased(key){
-		var i=-1;
+
 		if(_isModifier(key)){
-			i=_modifiers.indexOf(key);	
+			var i=_modifiers.indexOf(key);	
+			_modifiers.splice(i, 1);
 		}else{
 			i=_keys.indexOf(key);
+			_keys.splice(i, 1);
 		}
-		_modifiers.splice(i, 1);
+		
 	}
 	
 	function _isPressed(key){
