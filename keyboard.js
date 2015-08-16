@@ -6,66 +6,60 @@ function Keyboard(){
 	
 	var me=this;
 	me.rb=require('robotjs');
+	me._modifiers=[];
+	me._keys=[];
 	
 	
 };
-Keyboard.prototype.longKeyPress=function(key, cb, time){
+Keyboard.prototype.tap=function(key){
 	var me=this;
-	var c=0;
-	var i=setInterval(function(){
-		
-		me.rb.keyToggle(key, true);
-		c++;
-		if(c%4==0){
-			//don't want to blast the console.
-			console.log('pulse: '+key+' down');
-		}
-	},250);
-	
-	setTimeout(function(){
-		
-		clearInterval(i);
-		me.rb.keyToggle(key, false);
-		console.log('send: '+key+' up');
-		if((typeof cb)=='function')cb();
-	},time);
-	
+	me.press(key);
+	me.release(key);
 	return me;
 }
 
 
-Keyboard.prototype.keyTapArray=function(keys, cb, delay){
+Keyboard.prototype.press=function(key){
 	var me=this;
-	var i=setInterval(function(){
-		
-		var key=keys.shift();
-		me.rb.keyTap(key);
-		console.log('tap: '+key);
-		if(keys.length==0){
-			clearInterval(i);
-			if((typeof cb)=='function')cb();
-		}
-		
-	},delay);
-		
+	if(me.isPressed(key)){
+		throw new Error('Key is already pressed: '+key);
+	}
+	
+	me.rb.keyToggle(key, true, me._getModifiers());
+	me._setPressed(key);
 	return me;
 }
 
-
-
-//made this to test long key press with only two keyToggles
-Keyboard.prototype.longKeyPressSimple=function(key, cb, time){
+Keyboard.prototype.release=function(key){
 	var me=this;
+	if(!me.isPressed(key)){
+		throw new Error('Key is not pressed: '+key);
+	}
+	
+	me._setReleased(key);
+	me.rb.keyToggle(key, false, me._getModifiers());
 
-	me.rb.keyToggle(key, true);
-
-	setTimeout(function(){
-
-		me.rb.keyToggle(key, false);
-		if((typeof cb)=='function')cb();
-	},time);
+	return me;
+	
 }
 
+Keyboard.prototype.isPressed=function(key){
+	if(key.length>1){
+		return me._modifiers.indexOf(key)>=0;
+	}else{
+		return me._keys.indexOf(key)>=0;
+	}
+}
+
+Keyboard.prototype._getModifiers=function(){
+	var me=this;
+	if(me._modifiers.length){
+		return me._modifiers;
+	}else{
+		return null;
+	}
+}
 
 
 module.exports=new Keyboard();
+
